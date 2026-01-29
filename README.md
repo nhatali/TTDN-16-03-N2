@@ -20,7 +20,8 @@
 </div>
 
 ## 📖 1. Giới thiệu
-Platform ERP được áp dụng vào học phần Thực tập doanh nghiệp dựa trên mã nguồn mở Odoo. 
+
+Hệ thống chấm công và tính lương trên nền tảng Odoo được xây dựng nhằm quản lý thời gian làm việc và tiền lương của nhân viên một cách tự động, chính xác và minh bạch. Hệ thống thu thập dữ liệu chấm công, quản lý ca làm việc và ngày nghỉ, từ đó thực hiện tính lương dựa trên các quy tắc đã cấu hình. Việc triển khai trên Odoo giúp dễ dàng mở rộng, tích hợp với các phân hệ nhân sự và kế toán, góp phần nâng cao hiệu quả quản lý nhân sự trong doanh nghiệp. 
 
 ## 🔧 2. Các công nghệ được sử dụng
 <div align="center">
@@ -100,4 +101,3 @@ Nguyễn Chí Nhật
 © 2024 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
 
 ---
-    
