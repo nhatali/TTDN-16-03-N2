@@ -113,11 +113,11 @@ function registerView(name, LegacyView) {
             const viewDescriptions = await this.vm.loadViews(params, options);
             const result = viewDescriptions.__legacy__;
             const fieldsInfo = result.fields_views[this.props.type];
-            const jsClass = getJsClassWidget(fieldsInfo);
+            const jsClass = fieldsInfo ? getJsClassWidget(fieldsInfo) : undefined;
             this.View = jsClass || this.View;
             this.viewInfo = Object.assign({}, fieldsInfo, {
                 fields: result.fields,
-                viewFields: fieldsInfo.fields,
+                viewFields: fieldsInfo ? fieldsInfo.fields : {},
             });
             let controlPanelFieldsView;
             if (result.fields_views.search) {

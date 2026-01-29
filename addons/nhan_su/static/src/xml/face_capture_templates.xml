@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="FaceCaptureWidget">
+        <div class="o_face_capture_widget">
+            <div class="o_face_video_container">
+                <video class="o_face_video" autoplay="autoplay" muted="muted"></video>
+                <div class="o_face_video_overlay"></div>
+            </div>
+            <div class="o_face_controls">
+                <button class="o_face_capture_btn btn btn-primary">Bắt đầu quét khuôn mặt</button>
+                <button class="o_face_stop_btn btn btn-danger">Dừng</button>
+            </div>
+            <div class="o_face_status">
+                Nhấn nút để bắt đầu quét khuôn mặt
+            </div>
+        </div>
+    </t>
+</templates>

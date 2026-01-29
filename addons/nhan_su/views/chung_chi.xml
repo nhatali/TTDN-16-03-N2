@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- FORM -->
+    <record id="view_chung_chi_form" model="ir.ui.view">
+      <field name="name">chung_chi.form</field>
+      <field name="model">chung_chi</field>
+      <field name="arch" type="xml">
+        <form string="Chứng chỉ">
+          <sheet>
+            <group col="4">
+              <field name="name"/>
+              <field name="ma_chung_chi"/>
+              <field name="noi_cap"/>
+              <field name="nhan_vien_id"/>
+
+              <field name="ngay_cap"/>
+              <field name="ngay_het_han"/>
+              <field name="ghi_chu" colspan="4"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- TREE -->
+    <record id="view_chung_chi_tree" model="ir.ui.view">
+      <field name="name">chung_chi.tree</field>
+      <field name="model">chung_chi</field>
+      <field name="arch" type="xml">
+        <tree string="Chứng chỉ">
+          <field name="name"/>
+          <field name="ma_chung_chi"/>
+          <field name="nhan_vien_id"/>
+          <field name="noi_cap"/>
+          <field name="ngay_cap"/>
+          <field name="ngay_het_han"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- SEARCH -->
+    <record id="view_chung_chi_search" model="ir.ui.view">
+      <field name="name">chung_chi.search</field>
+      <field name="model">chung_chi</field>
+      <field name="arch" type="xml">
+        <search string="Tìm chứng chỉ">
+          <field name="name"/>
+          <field name="ma_chung_chi"/>
+          <field name="nhan_vien_id"/>
+          <field name="noi_cap"/>
+          <filter string="Sắp hết hạn (30 ngày)" name="filter_expiring_soon" 
+                  domain="[('ngay_het_han','&gt;=', context_today().strftime('%Y-%m-%d')),
+                           ('ngay_het_han','&lt;=', (context_today() + relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+          <filter string="Đã hết hạn" name="filter_expired" 
+                  domain="[('ngay_het_han','&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+          <filter string="Còn hiệu lực" name="filter_valid" 
+                  domain="['|', ('ngay_het_han','=',False), ('ngay_het_han','\u0026gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+          <group expand="0" string="Nhóm theo">
+            <filter string="Nhân viên" name="group_by_nhan_vien" domain="[]" context="{'group_by': 'nhan_vien_id'}"/>
+            <filter string="Nơi cấp" name="group_by_noi_cap" domain="[]" context="{'group_by': 'noi_cap'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_chung_chi" model="ir.actions.act_window">
+      <field name="name">Chứng chỉ</field>
+      <field name="res_model">chung_chi</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_chung_chi_search"/>
+    </record>
+
+  </data>
+</odoo>

@@ -1297,15 +1297,30 @@ class DataSet(http.Controller):
                   matching fields selection set)
         :rtype: list
         """
-        Model = request.env[model]
-        return Model.web_search_read(domain, fields, offset=offset, limit=limit, order=sort)
+        # Check if model exists before accessing
+        if model not in request.env.registry:
+            _logger.warning("Model '%s' does not exist in registry, returning empty result", model)
+            return {'length': 0, 'records': []}
+        try:
+            Model = request.env[model]
+            return Model.web_search_read(domain, fields, offset=offset, limit=limit, order=sort)
+        except KeyError:
+            _logger.warning("Model '%s' was removed from registry, returning empty result", model)
+            return {'length': 0, 'records': []}
 
     @http.route('/web/dataset/load', type='json', auth="user")
     def load(self, model, id, fields):
         value = {}
-        r = request.env[model].browse([id]).read()
-        if r:
-            value = r[0]
+        # Check if model exists before accessing
+        if model not in request.env.registry:
+            _logger.warning("Model '%s' does not exist in registry, returning empty value", model)
+            return {'value': value}
+        try:
+            r = request.env[model].browse([id]).read()
+            if r:
+                value = r[0]
+        except KeyError:
+            _logger.warning("Model '%s' was removed from registry, returning empty value", model)
         return {'value': value}
 
     def call_common(self, model, method, args, domain_id=None, context_id=None):
@@ -1313,7 +1328,25 @@ class DataSet(http.Controller):
 
     def _call_kw(self, model, method, args, kwargs):
         check_method_name(method)
-        return call_kw(request.env[model], method, args, kwargs)
+        # Check if model exists in registry before accessing
+        if model not in request.env.registry:
+            # Model doesn't exist, log warning
+            _logger.warning("Model '%s' does not exist in registry, skipping call", model)
+            # For load_views method, return proper structure with empty fields_views
+            if method == 'load_views':
+                return {'fields_views': {}, 'fields': {}}
+            # For other methods, return empty dict
+            return {}
+        try:
+            return call_kw(request.env[model], method, args, kwargs)
+        except KeyError as e:
+            # Model was removed between check and access
+            _logger.warning("Model '%s' was removed from registry, skipping call: %s", model, e)
+            # For load_views method, return proper structure with empty fields_views
+            if method == 'load_views':
+                return {'fields_views': {}, 'fields': {}}
+            # For other methods, return empty dict
+            return {}
 
     @http.route('/web/dataset/call', type='json', auth="user")
     def call(self, model, method, args, domain_id=None, context_id=None):

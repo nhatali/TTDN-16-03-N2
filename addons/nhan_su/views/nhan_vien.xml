@@ -7,29 +7,117 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Nhân viên</div>
-                        <group col="4" string="Thông tin chung">
-                            <field name="ho_ten_dem"/>
-                            <field name="ten"/>
-                            <field name="ho_va_ten"/>
-                            <field name="ma_dinh_danh"/>
-                            <field name="ngay_sinh"/>
-                            <field name="tuoi"/>
-                            <field name="so_nguoi_bang_tuoi"/>
-                            <field name="que_quan"/>
-                            <field name="email"/>
-                            <field name="anh" widget="image"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_van_ban_den"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-file-text-o">
+                                <field name="van_ban_den_count" widget="statinfo" string="Văn bản"/>
+                            </button>
+                        </div>
+
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ho_va_ten" placeholder="Họ và tên nhân viên..."/>
+                            </h1>
+                        </div>
+                        
+                        <group string="Thông tin chung">
+                            <group>
+                                <field name="ma_dinh_danh"/>
+                                <field name="ngay_sinh"/>
+                                <field name="que_quan"/>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                <field name="so_dien_thoai"/>
+                                <field name="dia_chi"/>
+                                <field name="phong_ban_id"/>
+                                <field name="bao_hiem_xa_hoi"/>
+                                <field name="luong" widget="float" options="{'type': 'float', 'digit': [16,0]}"/>
+                            </group>
                         </group>
+
                         <notebook>
-                            <page string="Danh sách lịch sử công tác">
-                                <field name="lich_su_cong_tac_ids"/>
+                            <page string="Chứng chỉ">
+                                <field name="chung_chi_ids" context="{'default_nhan_vien_id': active_id}">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="ma_chung_chi"/>
+                                        <field name="ngay_cap"/>
+                                        <field name="ngay_het_han"/>
+                                        <field name="noi_cap"/>
+                                    </tree>
+                                    <form string="Chứng chỉ">
+                                        <group col="4">
+                                            <field name="name"/>
+                                            <field name="ma_chung_chi"/>
+                                            <field name="noi_cap"/>
+                                            <field name="nhan_vien_id" readonly="1"/>
+                                            <field name="ngay_cap"/>
+                                            <field name="ngay_het_han"/>
+                                            <field name="ghi_chu" colspan="4"/>
+                                        </group>
+                                    </form>
+                                </field>
                             </page>
-                            <page string="Danh sách chứng chỉ bằng cấp">
-                                <field name="danh_sach_chung_chi_bang_cap_ids"/>
+                            <page string="Chấm công">
+                                <field name="cham_cong_ids" context="{'default_nhan_vien_id': active_id}">
+                                    <tree editable="bottom">
+                                        <field name="ngay"/>
+                                        <field name="gio_vao"/>
+                                        <field name="gio_ra"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="nhan_vien_id" readonly="1"/>
+                                            <field name="ngay"/>
+                                            <field name="gio_vao"/>
+                                            <field name="gio_ra"/>
+                                            <field name="trang_thai"/>
+                                            <field name="ghi_chu" colspan="4"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Lịch sử công tác">
+                                <field name="lich_su_cong_tac_ids" context="{'default_nhan_vien_id': active_id}">
+                                    <tree editable="bottom">
+                                        <field name="cong_ty"/>
+                                        <field name="chuc_danh"/>
+                                        <field name="tu_ngay"/>
+                                        <field name="den_ngay"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="nhan_vien_id" readonly="1"/>
+                                            <field name="cong_ty"/>
+                                            <field name="chuc_danh"/>
+                                            <field name="tu_ngay"/>
+                                            <field name="den_ngay"/>
+                                            <field name="ly_do_nghi"/>
+                                            <field name="ghi_chu" colspan="4"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Nhận diện khuôn mặt">
+                                <group>
+                                    <group string="Trạng thái đăng ký">
+                                        <field name="face_registered" readonly="1"/>
+                                        <field name="face_image" widget="image" readonly="1" attrs="{'invisible': [('face_registered', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <separator string="Quét khuôn mặt"/>
+                                <group>
+                                    <field name="id" widget="face_capture" nolabel="1"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
-                    
                 </form>
             </field>
         </record>
@@ -39,29 +127,32 @@
             <field name="model">nhan_vien</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="ma_dinh_danh"/>
-                    <field name="ho_ten_dem"/>
-                    <field name="ten"/>
                     <field name="ho_va_ten"/>
-                    <field name="ngay_sinh"/>
-                    <field name="tuoi"/>
-                    <field name="so_nguoi_bang_tuoi"/>
-                    <field name="que_quan"/>
+                    <field name="ma_dinh_danh"/>
+                    <field name="phong_ban_id"/>
+                    <field name="so_dien_thoai"/>
                     <field name="email"/>
+                    <field name="luong_formatted"/>
                 </tree>
             </field>
-        </record>
+</record>
 
         <record model="ir.ui.view" id="nhan_vien_search">
             <field name="model">nhan_vien</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="ma_dinh_danh"/>
                     <field name="ho_va_ten"/>
+                    <field name="ma_dinh_danh"/>
+                    <field name="phong_ban_id"/>
                     <field name="ngay_sinh"/>
-                    <field name="tuoi"/>
                     <field name="que_quan"/>
                     <field name="email"/>
+                    <field name="so_dien_thoai"/>
+                    <field name="dia_chi"/>
+                    <field name="bao_hiem_xa_hoi"/>
+                    <group expand="0" string="Nhóm theo">
+                        <filter string="Phòng ban" name="group_by_phong_ban" domain="[]" context="{'group_by': 'phong_ban_id'}"/>
+                    </group>
                 </search>
             </field>
         </record>
@@ -70,9 +161,7 @@
             <field name="name">Nhân viên</field>
             <field name="res_model">nhan_vien</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref = "nhan_vien_search"/>
+            <field name="search_view_id" ref="nhan_vien_search"/>
         </record>
     </data>
 </odoo>
-        
-    

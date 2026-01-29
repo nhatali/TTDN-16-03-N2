@@ -140,12 +140,12 @@ var AbstractView = Factory.extend({
         this.controllerParams = {
             actionViews: params.actionViews,
             activeActions: {
-                edit: typeof params.editable === 'boolean' ? params.editable : this.arch.attrs.edit ? !!JSON.parse(this.arch.attrs.edit) : true,
-                create: this.arch.attrs.create ? !!JSON.parse(this.arch.attrs.create) : true,
-                delete: this.arch.attrs.delete ? !!JSON.parse(this.arch.attrs.delete) : true,
-                duplicate: this.arch.attrs.duplicate ? !!JSON.parse(this.arch.attrs.duplicate) : true,
+                edit: typeof params.editable === 'boolean' ? params.editable : this.arch && this.arch.attrs && this.arch.attrs.edit ? !!JSON.parse(this.arch.attrs.edit) : true,
+                create: this.arch && this.arch.attrs && this.arch.attrs.create ? !!JSON.parse(this.arch.attrs.create) : true,
+                delete: this.arch && this.arch.attrs && this.arch.attrs.delete ? !!JSON.parse(this.arch.attrs.delete) : true,
+                duplicate: this.arch && this.arch.attrs && this.arch.attrs.duplicate ? !!JSON.parse(this.arch.attrs.duplicate) : true,
             },
-            bannerRoute: this.arch.attrs.banner_route,
+            bannerRoute: this.arch && this.arch.attrs ? this.arch.attrs.banner_route : undefined,
             controllerID: params.controllerID,
             displayName: params.displayName,
             isEmbedded: isEmbedded,
@@ -158,7 +158,7 @@ var AbstractView = Factory.extend({
         this.loadParams = {
             context: params.context,
             count: params.count || ((this.controllerParams.ids !== undefined) &&
-                   this.controllerParams.ids.length) || 0,
+                this.controllerParams.ids.length) || 0,
             domain: params.domain,
             modelName: params.modelName,
             res_id: currentId,
@@ -166,8 +166,8 @@ var AbstractView = Factory.extend({
         };
 
         const useSampleModel = 'useSampleModel' in params ?
-                                params.useSampleModel :
-                                !!(this.arch.attrs.sample && JSON.parse(this.arch.attrs.sample));
+            params.useSampleModel :
+            !!(this.arch && this.arch.attrs && this.arch.attrs.sample && JSON.parse(this.arch.attrs.sample));
 
         this.modelParams = {
             fields: this.fields,
@@ -178,11 +178,11 @@ var AbstractView = Factory.extend({
             this.modelParams.SampleModel = this.config.Model;
         }
 
-        var defaultOrder = this.arch.attrs.default_order;
+        var defaultOrder = this.arch && this.arch.attrs ? this.arch.attrs.default_order : undefined;
         if (defaultOrder) {
             this.loadParams.orderedBy = _.map(defaultOrder.split(','), function (order) {
                 order = order.trim().split(' ');
-                return {name: order[0], asc: order[1] !== 'desc'};
+                return { name: order[0], asc: order[1] !== 'desc' };
             });
         }
         if (params.searchQuery) {
@@ -428,8 +428,8 @@ var AbstractView = Factory.extend({
             groupedBy: searchQuery.groupBy,
         });
         this.loadParams.orderedBy = Array.isArray(searchQuery.orderedBy) && searchQuery.orderedBy.length ?
-                                        searchQuery.orderedBy :
-                                        this.loadParams.orderedBy;
+            searchQuery.orderedBy :
+            this.loadParams.orderedBy;
         if (searchQuery.timeRanges) {
             this.loadParams.timeRanges = searchQuery.timeRanges;
             this.rendererParams.timeRanges = searchQuery.timeRanges;

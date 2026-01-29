@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Face Attendance Action -->
+        <record id="action_face_attendance" model="ir.actions.client">
+            <field name="name">Chấm Công Nhận Diện Khuôn Mặt</field>
+            <field name="tag">face_attendance_action</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem 
+            id="menu_face_attendance"
+            name="Chấm Công Khuôn Mặt"
+            parent="menu_root"
+            action="action_face_attendance"
+            sequence="5"/>
+    </data>
+</odoo>

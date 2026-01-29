@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="FaceAttendanceAction">
+        <div class="o_face_attendance_action">
+            <div class="o_attendance_header">
+                <h1>Chấm Công Bằng Nhận Diện Khuôn Mặt</h1>
+                <p>Đứng trước camera để hệ thống tự động nhận diện</p>
+            </div>
+            
+            <div class="o_attendance_content">
+                <div class="o_attendance_video_section">
+                    <div class="o_attendance_video_container">
+                        <video class="o_attendance_video" autoplay="autoplay" muted="muted"></video>
+                        <div class="o_attendance_video_overlay"></div>
+                    </div>
+                    
+                    <div class="o_attendance_controls">
+                        <button class="o_start_camera_btn o_attendance_btn">Bật Camera</button>
+                        <button class="o_stop_camera_btn o_attendance_btn" style="display:none;">Tắt Camera</button>
+                        <button class="o_clock_in_btn o_attendance_btn" disabled="disabled">Chấm Công Vào</button>
+                        <button class="o_clock_out_btn o_attendance_btn" disabled="disabled">Chấm Công Ra</button>
+                    </div>
+                    
+                    <div class="o_attendance_status">
+                        Nhấn "Bật Camera" để bắt đầu
+                    </div>
+                </div>
+                
+                <div class="o_attendance_info_section">
+                    <div class="o_employee_info">
+                        <h3>Thông Tin Nhân Viên</h3>
+                        <div class="o_info_row">
+                            <span class="o_info_label">Họ và tên:</span>
+                            <span class="o_info_value o_employee_name">-</span>
+                        </div>
+                        <div class="o_info_row">
+                            <span class="o_info_label">Mã định danh:</span>
+                            <span class="o_info_value o_employee_code">-</span>
+                        </div>
+                        <div class="o_info_row">
+                            <span class="o_info_label">Phòng ban:</span>
+                            <span class="o_info_value o_employee_department">-</span>
+                        </div>
+                        <div class="o_info_row">
+                            <span class="o_info_label">Độ chính xác:</span>
+                            <span class="o_info_value o_confidence">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="o_last_action_panel">
+                        <h3>Hành Động Gần Nhất</h3>
+                        <div class="o_last_action">Chưa có hành động nào</div>
+                    </div>
+                    
+                    <div class="o_instructions_panel">
+                        <h3>Hướng Dẫn</h3>
+                        <ul>
+                            <li>Nhấn "Bật Camera" để bắt đầu</li>
+                            <li>Đứng trước camera để hệ thống nhận diện</li>
+                            <li>Sau khi nhận diện thành công, chọn "Chấm Công Vào" hoặc "Chấm Công Ra"</li>
+                            <li>Đảm bảo có đủ ánh sáng và nhìn thẳng vào camera</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

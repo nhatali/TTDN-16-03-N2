@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ky_luong,access_ky_luong,model_ky_luong,base.group_user,1,1,1,1
+access_bang_luong,access_bang_luong,model_bang_luong,base.group_user,1,1,1,1

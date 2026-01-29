@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_don_tu_form" model="ir.ui.view">
+            <field name="name">don_tu</field>
+            <field name="model">don_tu</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Đơn từ</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="nhan_vien_id"/>
+                            <field name="ngay_lam_don"/>
+                            <field name="ngay_ap_dung"/>
+                            <field name="trang_thai_duyet"/>
+                            <field name="loai_don"/>
+                            <field name="thoi_gian_xin"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_don_tu_tree" model="ir.ui.view">
+            <field name="name">don_tu</field>
+            <field name="model">don_tu</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_lam_don"/>
+                    <field name="ngay_ap_dung"/>
+                    <field name="trang_thai_duyet"/>
+                    <field name="loai_don"/>
+                    <field name="thoi_gian_xin"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="don_tu_search">
+            <field name="model">don_tu</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nhan_vien_id"/>
+                        <field name="nhan_vien_id"/>
+                        <field name="ngay_lam_don"/>
+                        <field name="ngay_ap_dung"/>
+                        <field name="trang_thai_duyet"/>
+                        <field name="loai_don"/>
+                        <field name="thoi_gian_xin"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_don_tu" model="ir.actions.act_window">
+            <field name="name">Đơn từ</field>
+            <field name="res_model">don_tu</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "don_tu_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_bang_luong_form" model="ir.ui.view">
+            <field name="name">bang_luong.form</field>
+            <field name="model">bang_luong</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="nhan_vien_id" class="oe_edit_only"/>
+                            <h1><field name="nhan_vien_id" readonly="1" options="{'no_create': True}"/></h1>
+                        </div>
+                        
+                        <group>
+                            <group string="📋 Thông tin kỳ lương">
+                                <field name="ky_luong_id" readonly="1"/>
+                                <field name="luong_co_ban" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="luong_theo_ngay" widget="monetary"/>
+                            </group>
+                            <group string="📊 Thống kê chấm công">
+                                <field name="so_ngay_cong"/>
+                                <field name="so_ngay_nghi"/>
+                                <field name="so_ban_ghi_cham_cong" readonly="1" string="🔍 Debug: Records"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="⏰ Thời gian">
+                                <field name="tong_phut_di_muon" widget="float_time"/>
+                                <field name="tong_phut_ve_som" widget="float_time"/>
+                                <field name="so_gio_tang_ca"/>
+                            </group>
+                            <group string="💰 Tính toán chi tiết">
+                                <field name="tien_phat_di_muon" widget="monetary" style="color: red;"/>
+                                <field name="tien_phat_ve_som" widget="monetary" style="color: red;"/>
+                                <field name="tien_tru_nghi" widget="monetary" style="color: red;"/>
+                                <field name="tien_thuong_tang_ca" widget="monetary" style="color: green;"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group/>
+                            <group>
+                                <field name="tong_luong_formatted" 
+                                       style="font-size: 24px; font-weight: bold; color: #00a09d;"
+                                       class="oe_inline"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bang_luong_tree" model="ir.ui.view">
+            <field name="name">bang_luong.tree</field>
+            <field name="model">bang_luong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ky_luong_id"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="luong_co_ban"/>
+                    <field name="so_ngay_cong"/>
+                    <field name="tong_phut_di_muon"/>
+                    <field name="tong_phut_ve_som"/>
+                    <field name="so_gio_tang_ca"/>
+                    <field name="tong_luong_formatted"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_bang_luong" model="ir.actions.act_window">
+            <field name="name">Bảng Lương</field>
+            <field name="res_model">bang_luong</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

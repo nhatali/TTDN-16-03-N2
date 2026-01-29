@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+            id="menu_root"
+            name="Chấm công"
+            sequence="0"/>
+          
+        <menuitem name="Bảng chấm công" 
+            id="menu_bang_cham_cong" 
+            parent="menu_root" 
+            sequence="1"
+            action="action_bang_cham_cong"
+        />
+
+        <menuitem name="Đăng ký ca làm" 
+            id="menu_dang_ky_ca_lam_theo_ngay" 
+            parent="menu_root" 
+            sequence="2"
+            action="action_dang_ky_ca_lam_theo_ngay"
+        />
+
+        <menuitem name="Đợt đăng ký" 
+            id="menu_dot_dang_ky" 
+            parent="menu_root" 
+            sequence="3"
+            action="action_dot_dang_ky"
+        />
+
+        <menuitem name="Đơn từ" 
+            id="menu_don_tu" 
+            parent="menu_root" 
+            sequence="4"
+            action="action_don_tu"
+        />
+
+    </data>
+</odoo>

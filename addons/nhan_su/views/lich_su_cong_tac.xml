@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_lich_su_cong_tac_form" model="ir.ui.view">
-            <field name="name">lich_su_cong_tac</field>
-            <field name="model">lich_su_cong_tac</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Lịch sử công tác</div>
-                        <group col="4" string="Thông tin chung">
-                            <field name="nhan_vien_id"/>
-                            <field name="chuc_vu_id"/>
-                            <field name="don_vi_id"/>
-                            <field name="loai_chuc_vu"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+  <data>
 
-        <record id="view_lich_su_cong_tac_tree" model="ir.ui.view">
-            <field name="name">lich_su_cong_tac</field>
-            <field name="model">lich_su_cong_tac</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="nhan_vien_id"/>
-                    <field name="chuc_vu_id"/>
-                    <field name="don_vi_id"/>
-                    <field name="loai_chuc_vu"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_lich_su_cong_tac_form" model="ir.ui.view">
+      <field name="name">lich_su_cong_tac.form</field>
+      <field name="model">lich_su_cong_tac</field>
+      <field name="arch" type="xml">
+        <form string="Lịch sử công tác">
+          <sheet>
+            <group col="4">
+              <field name="nhan_vien_id"/>
+              <field name="cong_ty"/>
+              <field name="chuc_danh"/>
+              <field name="tu_ngay"/>
+              <field name="den_ngay"/>
+              <field name="ly_do_nghi"/>
+              <field name="ghi_chu" colspan="4"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
-        <record model="ir.ui.view" id="lich_su_cong_tac_search">
-            <field name="model">lich_su_cong_tac</field>
-            <field name="arch" type="xml">
-                <search>
-                    <field name="nhan_vien_id"/>
-                    <field name="chuc_vu_id"/>
-                    <field name="don_vi_id"/>
-                    <field name="loai_chuc_vu"/>
-                </search>
-            </field>
-        </record>
+    <record id="view_lich_su_cong_tac_tree" model="ir.ui.view">
+      <field name="name">lich_su_cong_tac.tree</field>
+      <field name="model">lich_su_cong_tac</field>
+      <field name="arch" type="xml">
+        <tree string="Lịch sử công tác">
+          <field name="nhan_vien_id"/>
+          <field name="cong_ty"/>
+          <field name="chuc_danh"/>
+          <field name="tu_ngay"/>
+          <field name="den_ngay"/>
+        </tree>
+      </field>
+    </record>
 
-        <record id="action_lich_su_cong_tac" model="ir.actions.act_window">
-            <field name="name">Lịch sử công tác</field>
-            <field name="res_model">lich_su_cong_tac</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref = "lich_su_cong_tac_search"/>
-        </record>
-    </data>
+    <record id="view_lich_su_cong_tac_search" model="ir.ui.view">
+      <field name="name">lich_su_cong_tac.search</field>
+      <field name="model">lich_su_cong_tac</field>
+      <field name="arch" type="xml">
+        <search string="Tìm lịch sử công tác">
+          <field name="nhan_vien_id"/>
+          <field name="cong_ty"/>
+          <field name="chuc_danh"/>
+          <field name="tu_ngay"/>
+          <filter string="Đang làm việc" name="filter_working" domain="[('den_ngay','=',False)]"/>
+          <filter string="Đã nghỉ việc" name="filter_left" domain="[('den_ngay','!=',False)]"/>
+          <group expand="0" string="Nhóm theo">
+            <filter string="Nhân viên" name="group_by_nhan_vien" domain="[]" context="{'group_by': 'nhan_vien_id'}"/>
+            <filter string="Công ty" name="group_by_cong_ty" domain="[]" context="{'group_by': 'cong_ty'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_lich_su_cong_tac" model="ir.actions.act_window">
+      <field name="name">Lịch sử công tác</field>
+      <field name="res_model">lich_su_cong_tac</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_lich_su_cong_tac_search"/>
+    </record>
+
+  </data>
 </odoo>
-        
-    

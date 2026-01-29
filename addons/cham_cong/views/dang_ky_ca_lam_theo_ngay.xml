@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_dang_ky_ca_lam_theo_ngay_form" model="ir.ui.view">
+            <field name="name">dang_ky_ca_lam_theo_ngay</field>
+            <field name="model">dang_ky_ca_lam_theo_ngay</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Đăng ký ca làm theo ngày</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="ma_dot_ngay"/>
+                            <field name="dot_dang_ky_id"/>
+                            <field name="nhan_vien_id"/>
+                            <field name="ngay_lam"/>
+                            <field name="ca_lam"/>
+                            <field name="gio_ca" readonly="1"/>
+                            <field name="tang_ca"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dang_ky_ca_lam_theo_ngay_tree" model="ir.ui.view">
+            <field name="name">dang_ky_ca_lam_theo_ngay</field>
+            <field name="model">dang_ky_ca_lam_theo_ngay</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_dot_ngay"/>
+                    <field name="dot_dang_ky_id"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_lam"/>
+                    <field name="ca_lam"/>
+                    <field name="gio_ca"/>
+                    <field name="tang_ca"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="dang_ky_ca_lam_theo_ngay_search">
+            <field name="model">dang_ky_ca_lam_theo_ngay</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_dot_ngay"/>
+                    <field name="dot_dang_ky_id"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_lam"/>
+                    <field name="ca_lam"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_dang_ky_ca_lam_theo_ngay" model="ir.actions.act_window">
+            <field name="name">Đăng ký ca làm theo ngày</field>
+            <field name="res_model">dang_ky_ca_lam_theo_ngay</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "dang_ky_ca_lam_theo_ngay_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

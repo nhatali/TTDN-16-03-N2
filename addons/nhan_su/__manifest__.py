@@ -22,17 +22,33 @@
     # any module necessary for this one to work correctly
     'depends': ['base'],
 
+    # External dependencies
+    'external_dependencies': {
+        'python': ['face_recognition', 'PIL', 'numpy'],
+    },
+
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/chuc_vu.xml',
-        'views/don_vi.xml',
         'views/nhan_vien.xml',
+        'views/phong_ban.xml',
+        'views/chung_chi.xml',
+        'views/cham_cong.xml',
         'views/lich_su_cong_tac.xml',
-        'views/chung_chi_bang_cap.xml',
-        'views/danh_sach_chung_chi_bang_cap.xml',
+        'views/van_ban_den.xml',
         'views/menu.xml',
     ],
+    
+    'assets': {
+        'web.assets_backend': [
+            'nhan_su/static/src/js/face_capture.js',
+            'nhan_su/static/src/css/face_capture.css',
+        ],
+        'web.assets_qweb': [
+            'nhan_su/static/src/xml/face_capture_templates.xml',
+        ],
+    },
+    
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',

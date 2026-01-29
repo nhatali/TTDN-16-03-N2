@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_bang_cham_cong_form" model="ir.ui.view">
+            <field name="name">bang_cham_cong.form</field>
+            <field name="model">bang_cham_cong</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Bảng chấm công</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="nhan_vien_id"/>
+                            <field name="ngay_cham_cong"/>
+                            <field name="ca_lam"/>
+                            <field name="tang_ca" readonly="1"/>
+                            <field name="gio_vao_ca"/>
+                            <field name="gio_ra_ca"/>
+                            <field name="gio_vao"/>
+                            <field name="gio_ra"/>
+                            <field name="phut_di_muon"/>
+                            <field name="phut_ve_som"/>
+                            <field name="trang_thai"/>
+                            <field name="thoi_gian_xin"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_bang_cham_cong_tree" model="ir.ui.view">
+            <field name="name">bang_cham_cong.tree</field>
+            <field name="model">bang_cham_cong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_cham_cong"/>
+                    <field name="ca_lam"/>
+                    <field name="trang_thai_dang_ky" decoration-danger="trang_thai_dang_ky == 'chua_dang_ky'"/>
+                    <field name="tang_ca"/>
+                    <field name="gio_vao_ca_display" string="Giờ vào ca"/>
+                    <field name="gio_ra_ca_display" string="Giờ ra ca"/>
+                    <field name="gio_vao"/>
+                    <field name="gio_ra"/>
+                    <field name="phut_di_muon_display"/>
+                    <field name="phut_ve_som_display"/>
+                    <field name="trang_thai"/>
+                    <field name="thoi_gian_xin"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="bang_cham_cong_search" model="ir.ui.view">
+            <field name="model">bang_cham_cong</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_cham_cong"/>
+                    <field name="ca_lam"/>
+                    <field name="gio_vao_ca"/>
+                    <field name="gio_ra_ca"/>
+                    <field name="gio_vao"/>
+                    <field name="gio_ra"/>
+                    <field name="phut_di_muon"/>
+                    <field name="phut_ve_som"/>
+                    <field name="trang_thai"/>
+                    <field name="thoi_gian_xin"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_bang_cham_cong" model="ir.actions.act_window">
+            <field name="name">Bảng chấm công</field>
+            <field name="res_model">bang_cham_cong</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="bang_cham_cong_search"/>
+        </record>
+    </data>
+</odoo>

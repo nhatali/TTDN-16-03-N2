@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ky_luong_form" model="ir.ui.view">
+            <field name="name">ky_luong.form</field>
+            <field name="model">ky_luong</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_tao_bang_luong" string="Tạo Bảng Lương" type="object" 
+                                class="btn-primary" attrs="{'invisible': [('trang_thai', '!=', 'draft')]}"/>
+                        <button name="action_xac_nhan" string="Xác nhận" type="object" 
+                                class="btn-primary" attrs="{'invisible': [('trang_thai', '!=', 'draft')]}"/>
+                        <button name="action_thanh_toan" string="Đánh dấu đã thanh toán" type="object" 
+                                class="btn-success" attrs="{'invisible': [('trang_thai', '!=', 'confirmed')]}"/>
+                        <field name="trang_thai" widget="statusbar" statusbar_visible="draft,confirmed,paid"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="ten_ky" placeholder="VD: Tháng 1/2026"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="ngay_bat_dau"/>
+                                <field name="ngay_ket_thuc"/>
+                            </group>
+                            <group>
+                                <field name="so_nhan_vien"/>
+                                <field name="tong_luong_formatted"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Bảng lương">
+                                <field name="bang_luong_ids">
+                                    <tree>
+                                        <field name="nhan_vien_id"/>
+                                        <field name="luong_co_ban" sum="Tổng"/>
+                                        <field name="so_ngay_cong" sum="Tổng"/>
+                                        <field name="so_ngay_nghi" sum="Tổng"/>
+                                        <field name="tong_phut_di_muon" sum="Tổng"/>
+                                        <field name="tong_phut_ve_som" sum="Tổng"/>
+                                        <field name="so_gio_tang_ca" sum="Tổng"/>
+                                        <field name="tien_phat_di_muon" sum="Tổng"/>
+                                        <field name="tien_phat_ve_som" sum="Tổng"/>
+                                        <field name="tien_thuong_tang_ca" sum="Tổng"/>
+                                        <field name="tong_luong_formatted"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ky_luong_tree" model="ir.ui.view">
+            <field name="name">ky_luong.tree</field>
+            <field name="model">ky_luong</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ten_ky"/>
+                    <field name="ngay_bat_dau"/>
+                    <field name="ngay_ket_thuc"/>
+                    <field name="so_nhan_vien"/>
+                    <field name="tong_luong_formatted"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ky_luong" model="ir.actions.act_window">
+            <field name="name">Kỳ Lương</field>
+            <field name="res_model">ky_luong</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

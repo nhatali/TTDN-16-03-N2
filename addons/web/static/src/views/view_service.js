@@ -80,6 +80,9 @@ export const viewService = {
                             __legacy__: result,
                         }; // for legacy purpose, keys in result are left in viewDescriptions
                         for (const [, viewType] of params.views) {
+                            if (!result.fields_views[viewType]) {
+                                continue;
+                            }
                             const viewDescription = JSON.parse(
                                 JSON.stringify(result.fields_views[viewType])
                             );

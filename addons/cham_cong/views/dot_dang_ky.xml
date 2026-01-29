@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_dot_dang_ky_form" model="ir.ui.view">
+            <field name="name">dot_dang_ky</field>
+            <field name="model">dot_dang_ky</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Đợt đăng ký</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="ma_dot"/>
+                            <field name="nam_dang_ky"/>
+                            <field name="ten_dot"/>
+                            <field name="thang_dang_ky"/>
+                            <field name="ngay_bat_dau"/>
+                            <field name="ngay_ket_thuc"/>
+                            <field name="han_dang_ky"/>
+                            <field name="nhan_vien_ids" widget="many2many_checkboxes"/>
+                            <field name="trang_thai_dang_ky"/>
+                            <field name="trang_thai_ap_dung"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dot_dang_ky_tree" model="ir.ui.view">
+            <field name="name">dot_dang_ky</field>
+            <field name="model">dot_dang_ky</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_dot"/>
+                    <field name="ten_dot"/>
+                    <field name="nam_dang_ky"/>
+                    <field name="thang_dang_ky"/>
+                    <field name="ngay_bat_dau"/>
+                    <field name="ngay_ket_thuc"/>
+                    <field name="han_dang_ky"/>
+                    <field name="nhan_vien_ids" widget="many2many_tags"/>
+                    <field name="trang_thai_dang_ky"/>
+                    <field name="trang_thai_ap_dung"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="dot_dang_ky_search">
+            <field name="model">dot_dang_ky</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_dot"/>
+                    <field name="ten_dot"/>
+                    <field name="nam_dang_ky"/>
+                    <field name="thang_dang_ky"/>
+                    <field name="ngay_bat_dau"/>
+                    <field name="ngay_ket_thuc"/>
+                    <field name="han_dang_ky"/>
+                    <field name="nhan_vien_ids" widget="many2many_tags"/>
+                    <field name="trang_thai_dang_ky"/>
+                    <field name="trang_thai_ap_dung"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_dot_dang_ky" model="ir.actions.act_window">
+            <field name="name">Đợt đăng ký</field>
+            <field name="res_model">dot_dang_ky</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "dot_dang_ky_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

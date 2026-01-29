@@ -118,6 +118,8 @@ class IrActions(models.Model):
         """, [model_name])
         for action_id, action_model, binding_type in cr.fetchall():
             try:
+                if action_model not in self.env.registry:
+                    continue
                 action = self.env[action_model].sudo().browse(action_id)
                 action_groups = getattr(action, 'groups_id', ())
                 action_model = getattr(action, 'res_model', False)
@@ -131,7 +133,7 @@ class IrActions(models.Model):
                 if 'sequence' in action._fields:
                     fields.append('sequence')
                 result[binding_type].append(action.read(fields)[0])
-            except (AccessError, MissingError):
+            except (AccessError, MissingError, KeyError):
                 continue
 
         # sort actions by their sequence if sequence available
@@ -182,9 +184,9 @@ class IrActionsActWindow(models.Model):
     @api.constrains('res_model', 'binding_model_id')
     def _check_model(self):
         for action in self:
-            if action.res_model not in self.env:
+            if action.res_model and action.res_model not in self.env.registry:
                 raise ValidationError(_('Invalid model name %r in action definition.', action.res_model))
-            if action.binding_model_id and action.binding_model_id.model not in self.env:
+            if action.binding_model_id and action.binding_model_id.model and action.binding_model_id.model not in self.env.registry:
                 raise ValidationError(_('Invalid model name %r in action definition.', action.binding_model_id.model))
 
     @api.depends('view_ids.view_mode', 'view_mode', 'view_id.type')
@@ -221,8 +223,15 @@ class IrActionsActWindow(models.Model):
     @api.depends('res_model', 'search_view_id')
     def _compute_search_view(self):
         for act in self:
-            fvg = self.env[act.res_model].fields_view_get(act.search_view_id.id, 'search')
-            act.search_view = str(fvg)
+            try:
+                if not act.res_model or not act.search_view_id:
+                    act.search_view = False
+                    continue
+                fvg = self.env[act.res_model].fields_view_get(act.search_view_id.id, 'search')
+                act.search_view = str(fvg)
+            except (KeyError, ValueError, AttributeError):
+                # Handle cases where model doesn't exist in registry or view is invalid
+                act.search_view = False
 
     name = fields.Char(string='Action Name', translate=True)
     type = fields.Char(default="ir.actions.act_window")
@@ -258,13 +267,17 @@ class IrActionsActWindow(models.Model):
         if not fields or 'help' in fields:
             for values in result:
                 model = values.get('res_model')
-                if model in self.env:
+                if model and model in self.env.registry:
                     eval_ctx = dict(self.env.context)
                     try:
                         ctx = safe_eval(values.get('context', '{}'), eval_ctx)
                     except:
                         ctx = {}
-                    values['help'] = self.with_context(**ctx).env[model].get_empty_list_help(values.get('help', ''))
+                    try:
+                        values['help'] = self.with_context(**ctx).env[model].get_empty_list_help(values.get('help', ''))
+                    except (KeyError, AttributeError):
+                        # Model doesn't exist or method not available, skip
+                        pass
         return result
 
     @api.model_create_multi
@@ -272,7 +285,11 @@ class IrActionsActWindow(models.Model):
         self.clear_caches()
         for vals in vals_list:
             if not vals.get('name') and vals.get('res_model'):
-                vals['name'] = self.env[vals['res_model']]._description
+                try:
+                    vals['name'] = self.env[vals['res_model']]._description
+                except (KeyError, AttributeError):
+                    # Model doesn't exist in registry, skip setting name
+                    pass
         return super(IrActionsActWindow, self).create(vals_list)
 
     def unlink(self):
